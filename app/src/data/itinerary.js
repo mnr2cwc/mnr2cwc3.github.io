@@ -1,3 +1,24 @@
+// Local photos: drop the file in app/src/images/, import it here, then use the
+// variable in an `images` array below. Vite rewrites the import to a real asset
+// URL (base path included), so it's just a string at runtime and can sit
+// alongside the remote URLs still standing in for photos we don't have yet.
+import sanJuanBeach from '../images/SanJuanBeach.jpg'
+import sanJuanFunday from '../images/SanJuanSundayFunday.jpg'
+import sanJuanDeepSea from '../images/SanJuanDeepSeas.jpeg'
+import sanJuanZiplining from '../images/SanJuanZiplining.jpeg'
+import sanJuanSurf from '../images/SanJuanSurf.jpg'
+import sanJuanCatamaran from '../images/SanJuanCatamaran.jpg'
+
+import lakeVolcano from '../images/LakeVolcano.jpg'
+import lakeMasaya from '../images/LakeMasaya.jpeg'
+import lakeGranada from '../images/LakeGranada.jpeg'
+import lakeOmpete from '../images/LakeOmpete.jpeg'
+import lakeIsletas from '../images/LakeIsletas.jpeg'
+import lakeFish from '../images/LakeFish.jpeg'
+
+import LeonBoarding from '../images/LeonVolcanoBoarding.jpeg'
+import LeonPartyBus from '../images/LeonPartyBus.jpeg'
+
 export const days = [
   {
     day: 1,
@@ -67,7 +88,7 @@ export const days = [
     day: 9,
     date: 'Sunday, November 15',
     location: 'Managua',
-    activity: '',
+    activity: 'Drive to Managua and fly Back to States',
     notes: '',
     link: '',
   },
@@ -80,9 +101,12 @@ export const locations = {
     description: 'San Juan del Sur is a vibrant beach town on Nicaragua\'s Pacific coast. Known for its laid-back surfer vibe, stunning sunsets, and friendly locals, this coastal paradise offers world-class beach activities and is the perfect base for adventure seekers.',
     longDescription: 'Nestled along Nicaragua\'s Pacific coast, San Juan del Sur is a picturesque beach town that has become a premier destination for travelers seeking adventure, relaxation, and authentic Central American culture. With its beautiful golden-sand beaches, warm tropical waters, and a thriving community of both locals and expats, SJDS offers an incredible mix of activities from water sports to cultural experiences. Whether you\'re looking to catch some waves, explore the nearby national parks, or simply unwind with fresh seafood and sunset views, San Juan del Sur delivers unforgettable memories.',
     images: [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=400&fit=crop',
+      sanJuanBeach,
+      sanJuanSurf,
+      sanJuanFunday,
+      sanJuanDeepSea,
+      sanJuanZiplining, 
+
     ],
     days: [1, 2, 3, 4],
     activities: [
@@ -90,26 +114,32 @@ export const locations = {
         name: 'Surf Classes',
         description: 'Learn to surf on world-class Pacific waves with experienced instructors.',
         link: 'https://www.tripadvisor.com/AttractionProductReview-g528745-d23696605-2_Hour_Guided_Surf_Lesson_in_Playa_Maderas-San_Juan_del_Sur_Rivas_Department.html',
+        image : sanJuanSurf,
       },
       {
         name: 'Ziplining',
         description: 'Soar through the jungle canopy on an adrenaline-pumping zipline adventure.',
         link: 'https://www.tripadvisor.com/AttractionProductReview-g528745-d34441551-Ride_the_sky_and_Epic_bicycle_zipline_tour-San_Juan_del_Sur_Rivas_Department.html',
+        image: sanJuanZiplining,
       },
       {
         name: 'Sunday Funday Pool Crawl',
         description: 'Join the social scene with a fun pub crawl visiting different pool venues throughout town.',
         link: 'https://sundayfundaynicaragua.com/',
+        image: sanJuanFunday,
       },
       {
         name: 'Deep Sea Fishing',
         description: 'Go out on the Pacific for an exciting deep sea fishing expedition. Catch marlin, tuna, and more.',
         link: 'https://www.tripadvisor.com/AttractionProductReview-g528745-d34338449-Relaxed_Coastal_Fishing_Trip_in_San_Juan_del_Sur-San_Juan_del_Sur_Rivas_Department.html',
+        image: sanJuanDeepSea,
       },
       {
         name: 'Sunset Catamaran Tour',
         description: 'Sail along the coast as the sun sets over the Pacific. Often includes drinks and snacks.',
         link: 'https://www.wetravel.com/trips/half-day-shared-trip-turismo-del-mar-s-a-san-juan-del-sur-23792511#about-your-trip',
+        image: sanJuanCatamaran,
+      
       },
       {
         name: 'Wakeboard Lessons',
@@ -133,10 +163,11 @@ export const locations = {
     shortName: 'Lake Nicaragua',
     description: 'Lake Nicaragua is one of Central America\'s most beautiful freshwater lakes, home to the historic colonial city of Granada and the stunning volcanic island of Ometepe. A natural wonder with incredible biodiversity and rich cultural heritage.',
     longDescription: 'Lake Nicaragua (Lago de Nicaragua) is Central America\'s largest freshwater lake and a UNESCO-designated wetland of international importance. Its waters are dotted with over 400 islands, from the tiny isletas near Granada to the distinctive twin-peaked volcano island of Ometepe. The lake region is a gateway to pristine nature, adventure, and culture. Granada, the colonial jewel on the lakeshore, combines Spanish colonial architecture with vibrant Caribbean culture. The lake itself is home to unique wildlife including freshwater sharks, caimans, and countless bird species. This region is perfect for island hopping, volcano hiking, cultural exploration, and simply soaking in the natural beauty.',
+    // Placeholder stock photos until we have our own — see the note on imports
+    // at the top of this file for how to swap in a local one.
     images: [
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop',
+      lakeVolcano,
       'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1495854035989-cebdbdd97913?w=600&h=400&fit=crop',
     ],
     days: [5, 6, 7],
     activities: [
@@ -144,21 +175,25 @@ export const locations = {
         name: 'Masaya Volcano National Park',
         description: 'Visit one of Nicaragua\'s most active volcanoes. Hike through the national park and witness the smoking crater.',
         link: '',
+        image : lakeMasaya,
       },
       {
         name: 'Granada City Tour',
         description: 'Explore the colorful colonial architecture and vibrant culture of Granada. Visit markets, churches, and historic sites.',
         link: '',
+        image: lakeGranada
       },
       {
         name: 'Ometepe Island Adventure',
         description: 'Climb the twin volcanoes or relax in natural hot springs on this unique volcanic island.',
         link: '',
+        image: lakeOmpete
       },
       {
         name: 'Isletas Boat Tour',
         description: 'Take a boat tour through the 400+ small islands near Granada. Spot wildlife and visit local communities.',
         link: '',
+        image: lakeIsletas
       },
       {
         name: 'Lake Swimming & Beaches',
@@ -169,6 +204,7 @@ export const locations = {
         name: 'Wildlife Spotting',
         description: 'Look for caimans, freshwater sharks, iguanas, sloths, and numerous bird species in their natural habitat.',
         link: '',
+        image : lakeFish
       },
       {
         name: 'Kayaking on the Lake',
@@ -187,10 +223,10 @@ export const locations = {
     shortName: 'Leon',
     description: 'Leon is a historic city known as the gateway to Nicaragua\'s volcanoes. It\'s the home of the thrilling volcano boarding activity on Cerro Negro.',
     longDescription: 'Leon is one of Nicaragua\'s most historic cities and serves as the perfect base for volcano adventures. Perched near several active volcanoes, Leon offers visitors a chance to experience raw natural power in a dramatic landscape. The city itself blends colonial history with vibrant street culture, local cuisine, and colorful architecture. But Leon is most famous as the launching point for volcano boarding—a unique and exhilarating adventure where you ride down the ash slopes of Cerro Negro volcano on a specially designed board. It\'s an unforgettable adrenaline rush set against the backdrop of Nicaragua\'s volcanic landscape.',
+    // Hero only for now — the two other entries here were a dead URL and a
+    // duplicate of the hero. Add real Leon photos to app/src/images/.
     images: [
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1506929925346-21bda4d32df4?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop',
+      LeonBoarding,
     ],
     days: [8],
     activities: [
@@ -198,6 +234,7 @@ export const locations = {
         name: 'Volcano Boarding',
         description: 'The main event! Hike up Cerro Negro volcano and board down the ash slopes. An unforgettable rush followed by drinks and a bonfire celebration.',
         link: 'https://www.volcanodaynicaragua.com/tours/volcano-boarding/',
+        image : LeonPartyBus
       },
       {
         name: 'Volcano Hiking',
