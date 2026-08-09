@@ -1,5 +1,10 @@
 <template>
   <div class="timeline-page">
+    <section class="map-section">
+      <h2>Trip Map</h2>
+      <NicaraguaMap />
+    </section>
+
     <section class="timeline">
       <h2>Itinerary</h2>
       <div class="timeline-container">
@@ -40,6 +45,7 @@
 
 <script setup>
 import { days } from '../data/itinerary.js'
+import NicaraguaMap from '../components/NicaraguaMap.vue'
 </script>
 
 <style scoped>
@@ -47,6 +53,17 @@ import { days } from '../data/itinerary.js'
   padding: 2rem 1rem;
   max-width: 900px;
   margin: 0 auto;
+}
+
+.map-section {
+  margin-bottom: 4rem;
+}
+
+.map-section h2 {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin: 0 0 1.5rem 0;
+  font-weight: 700;
 }
 
 .timeline {
