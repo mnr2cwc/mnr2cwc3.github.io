@@ -28,8 +28,27 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/nicaragua-trip-2026/'),
+  history: createWebHistory('/'),
   routes,
 })
+
+// Handle GitHub Pages 404.html redirect (GitHub Pages has no SPA fallback,
+// so 404.html bounces unknown paths back here with the real path in ?p=)
+router.beforeEach((to, from, next) => {
+  const redirect = sessionStorage.redirect
+  delete sessionStorage.redirect
+  if (redirect) {
+    next(redirect)
+  } else {
+    next()
+  }
+})
+
+const params = new URLSearchParams(window.location.search)
+const redirectPath = params.get('p')
+if (redirectPath) {
+  sessionStorage.redirect = decodeURIComponent(redirectPath).replace(/~and~/g, '&')
+  window.history.replaceState(null, null, '/')
+}
 
 export default router
