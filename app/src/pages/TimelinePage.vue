@@ -5,6 +5,11 @@
       <NicaraguaMap />
     </section>
 
+    <section class="flights-section">
+      <h2>Find Flights</h2>
+      <FlightSearch />
+    </section>
+
     <section class="timeline">
       <h2>Itinerary</h2>
       <div class="timeline-container">
@@ -46,6 +51,7 @@
 <script setup>
 import { days } from '../data/itinerary.js'
 import NicaraguaMap from '../components/NicaraguaMap.vue'
+import FlightSearch from '../components/FlightSearch.vue'
 </script>
 
 <style scoped>
@@ -60,6 +66,17 @@ import NicaraguaMap from '../components/NicaraguaMap.vue'
 }
 
 .map-section h2 {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin: 0 0 1.5rem 0;
+  font-weight: 700;
+}
+
+.flights-section {
+  margin-bottom: 4rem;
+}
+
+.flights-section h2 {
   font-size: 1.8rem;
   color: var(--color-primary);
   margin: 0 0 1.5rem 0;
