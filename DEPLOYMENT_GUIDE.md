@@ -1,39 +1,36 @@
 # Nicaragua Trip Website — Deployment Guide
 
-Your repo is `mnr2cwc/mnr2cwc3.github.io`, owned by the **mnr2cwc** account. Because the repo name (`mnr2cwc3.github.io`) doesn't exactly match the owner's username (`mnr2cwc`), GitHub does **not** treat it as a special root user-page. It's a normal project page, served at:
+**Live URL: https://mnr2cwc.github.io/mnr2cwc3.github.io/**
 
-**`https://mnr2cwc.github.io/mnr2cwc3.github.io/`**
+## How this is set up (and why)
 
-(`https://mnr2cwc3.github.io/` is a different, unrelated domain — that's why it showed "Site not found.") The site is configured to match the correct subpath.
+The repo is `mnr2cwc/mnr2cwc3.github.io`. The repo name doesn't exactly match the owner name (`mnr2cwc` vs `mnr2cwc3`), so GitHub treats it as an ordinary **project page**, served under the `/mnr2cwc3.github.io/` subpath — not at `https://mnr2cwc3.github.io/`, which is an unrelated domain that doesn't exist.
 
-## One-time GitHub Settings (do this first)
+GitHub Pages here is set to **"Deploy from a branch" → `main` → `/` (root)**, which means Pages serves whatever is committed at the repo root, as-is. So the project is arranged to put the *built* site at the repo root:
 
-1. Go to `https://github.com/mnr2cwc/mnr2cwc3.github.io/settings/pages`
-2. Under "Build and deployment" → **Source**, select **GitHub Actions** (NOT "Deploy from a branch")
-   - As of the last check, this was still on the legacy branch-based builder, which serves the raw, unbuilt `index.html` straight from the repo (that's why the page was blank — the browser can't resolve the `import 'vue'` statement in raw source without a bundler).
-3. Save. No branch selection needed — `.github/workflows/deploy.yml` builds and deploys automatically on every push to `main`.
+```
+app/                  ← Vite source lives here
+  index.html            (page template)
+  src/                  (components, pages, data)
+  public/               (404.html, .nojekyll)
 
-## Watch the Deploy
-
-1. Push: `git push`
-2. Go to the **Actions** tab, watch "Deploy to GitHub Pages" finish green (~1–2 min)
-3. Visit: **https://mnr2cwc.github.io/mnr2cwc3.github.io/**
-
-## Local Development
-
-```bash
-cd "/home/sfuser/Documents/Nicaragua Trip"
-npm run dev
+index.html            ← BUILD OUTPUT (served by Pages)
+assets/index.js       ← BUILD OUTPUT
+assets/index.css      ← BUILD OUTPUT
+404.html              ← BUILD OUTPUT (SPA fallback)
+.nojekyll             ← BUILD OUTPUT (tells Pages to skip Jekyll)
 ```
 
-Open http://localhost:5173/mnr2cwc3.github.io/ (matches the deployed subpath base).
+Build output is committed on purpose — that's what makes branch-based Pages work without touching any settings.
 
-Edit content in:
-- **Itinerary data**: `src/data/itinerary.js`
-- **Pages**: `src/pages/*.vue`
-- **Navigation**: `src/components/Navigation.vue`
+## Making changes
 
-After making changes:
+Edit source under `app/`:
+- **Itinerary data**: `app/src/data/itinerary.js`
+- **Pages**: `app/src/pages/*.vue`
+- **Navigation**: `app/src/components/Navigation.vue`
+
+Then just commit and push:
 
 ```bash
 git add -A
@@ -41,16 +38,27 @@ git commit -m "Update: description of changes"
 git push
 ```
 
-GitHub Actions rebuilds and redeploys automatically.
+The `Build site` GitHub Action rebuilds from `app/` and commits the refreshed output back to `main` automatically. (Pushes it makes don't re-trigger the workflow, so it can't loop.)
 
-## Build for Production
+If you'd rather build locally before pushing — or the Action ever fails — this does the same thing:
 
 ```bash
 npm run build
+git add -A && git commit -m "Rebuild" && git push
 ```
 
-Output goes to `dist/` (gitignored — only source is committed; Actions builds fresh on every push).
+## Local development
 
-## If you'd rather have it at the root domain
+```bash
+npm run dev
+```
 
-Renaming the repo to exactly `mnr2cwc.github.io` (matching your username) would make GitHub treat it as the special root user-page, served at `https://mnr2cwc.github.io/`. That would replace whatever is currently live there (the "Gang Goes to Indonesia" site), so only do this if that's fine to overwrite/merge. If you do this, change `base` back to `/` in `vite.config.js` and `src/router/index.js`, and revert the `pathSegmentsToKeep` in `public/404.html` to `0`.
+Open **http://localhost:5173/mnr2cwc3.github.io/** (the base path matches production).
+
+## Optional: cleaner setup
+
+Two ways to simplify later, both requiring a GitHub settings change:
+
+**A. Switch Pages to the "GitHub Actions" source.** Settings → Pages → Source → *GitHub Actions*. Then build output no longer needs committing, and `app/` could move back to the repo root. This is the more conventional setup — worth doing if the settings page cooperates.
+
+**B. Rename the repo to exactly `mnr2cwc.github.io`.** It'd then be served at the root domain `https://mnr2cwc.github.io/` and `base` could become `/`. Note this would collide with the site already published there ("The Gang Goes to Indonesia"), so only do it if replacing that is intended.
