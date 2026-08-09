@@ -27,8 +27,10 @@ const routes = [
   },
 ]
 
+const BASE = '/mnr2cwc3.github.io/'
+
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory(BASE),
   routes,
 })
 
@@ -48,7 +50,7 @@ const params = new URLSearchParams(window.location.search)
 const redirectPath = params.get('p')
 if (redirectPath) {
   sessionStorage.redirect = decodeURIComponent(redirectPath).replace(/~and~/g, '&')
-  window.history.replaceState(null, null, '/')
+  window.history.replaceState(null, null, BASE)
 }
 
 export default router
