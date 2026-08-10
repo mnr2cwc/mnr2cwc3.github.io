@@ -1,5 +1,20 @@
 <template>
   <div class="timeline-page">
+    <!-- Fixed scrapbook collage behind the page: all the general photos mounted
+         as prints on the cream "paper", scattered at slight angles like the
+         reference layout. position: fixed keeps it still while content scrolls.
+         A cream veil (::after) keeps headings that sit directly on the page
+         readable. Decorative, so aria-hidden. -->
+    <div class="scrapbook-backdrop" aria-hidden="true">
+      <div
+        v-for="photo in backdropPhotos"
+        :key="photo"
+        class="backdrop-photo"
+      >
+        <img :src="photo" alt="" decoding="async" />
+      </div>
+    </div>
+
     <section class="map-section">
       <h2>Trip Map</h2>
       <NicaraguaMap />
@@ -35,6 +50,7 @@
               :src="group.thumbnail"
               :alt="group.location"
               class="group-thumbnail"
+              loading="lazy"
             />
             <div class="day-list">
               <div
@@ -76,6 +92,29 @@ import { computed } from 'vue'
 import { days, locations } from '../data/itinerary.js'
 import NicaraguaMap from '../components/NicaraguaMap.vue'
 import FlightSearch from '../components/FlightSearch.vue'
+import bgChristStatue from '../images/general/adobestock-171100762.webp'
+import bgKayak from '../images/general/kajaktour-granada-1024x1536-1.jpg'
+import bgBay from '../images/general/San-Juan-del-sur-Nicaragua.jpg'
+import bgIsletasWide from '../images/general/Isletas-de-granada-6.jpg'
+import bgVolcanoCrater from '../images/general/volcano-main-ss-ps-200228_hpMain.jpg'
+import bgSurf from '../images/general/DSC_0314.webp'
+import bgCerroNegro from '../images/general/Tour-Cerro-Negro.jpg'
+import bgIsletas from '../images/general/Isletas-de-Granada-.jpg'
+
+// Order matters — each photo's position/angle is set by :nth-child in the CSS
+// below (rather than inline styles, so the media queries can override them).
+// Photos keep their natural aspect ratio, mixing landscape and portrait the way
+// a real scrapbook page does.
+const backdropPhotos = [
+  bgChristStatue,
+  bgKayak,
+  bgBay,
+  bgIsletasWide,
+  bgVolcanoCrater,
+  bgSurf,
+  bgCerroNegro,
+  bgIsletas,
+]
 
 const locationKeyForDay = (dayNumber) =>
   Object.keys(locations).find((key) => locations[key].days?.includes(dayNumber)) ?? null
@@ -112,6 +151,101 @@ const groupedDays = computed(() => {
   padding: 2rem 1rem;
   max-width: 900px;
   margin: 0 auto;
+}
+
+/* --- Fixed scrapbook backdrop ----------------------------------------------
+   Pinned to the viewport and painted behind the in-flow content via a negative
+   z-index, so the collage holds still while the itinerary scrolls over it. */
+.scrapbook-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Cream veil over the collage. The section headings ("Trip Map", "Itinerary")
+   sit directly on the page with no card behind them, so the photos have to be
+   knocked back far enough for that green to stay legible. */
+.scrapbook-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 245, 240, 0.76);
+}
+
+.backdrop-photo {
+  position: absolute;
+  background: #fff;
+  padding: 8px 8px 20px;
+  border-radius: 2px;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.14),
+    0 12px 26px rgba(0, 0, 0, 0.1);
+}
+
+.backdrop-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Scattered placement — angles stay under ~3deg so it reads as arranged rather
+   than tossed. Widths are in vw so the collage scales with the viewport. */
+.backdrop-photo:nth-child(1) {
+  top: -3%;
+  left: -4%;
+  width: 33vw;
+  transform: rotate(-3deg);
+}
+
+.backdrop-photo:nth-child(2) {
+  top: 2%;
+  left: 29%;
+  width: 16vw;
+  transform: rotate(2.5deg);
+}
+
+.backdrop-photo:nth-child(3) {
+  top: -5%;
+  left: 48%;
+  width: 31vw;
+  transform: rotate(2deg);
+}
+
+.backdrop-photo:nth-child(4) {
+  top: 8%;
+  left: 77%;
+  width: 27vw;
+  transform: rotate(-2.5deg);
+}
+
+.backdrop-photo:nth-child(5) {
+  top: 38%;
+  left: -5%;
+  width: 29vw;
+  transform: rotate(2.5deg);
+}
+
+.backdrop-photo:nth-child(6) {
+  top: 55%;
+  left: 21%;
+  width: 26vw;
+  transform: rotate(-2deg);
+}
+
+.backdrop-photo:nth-child(7) {
+  top: 40%;
+  left: 47%;
+  width: 24vw;
+  transform: rotate(-3deg);
+}
+
+.backdrop-photo:nth-child(8) {
+  top: 58%;
+  left: 70%;
+  width: 30vw;
+  transform: rotate(2deg);
 }
 
 .map-section {
@@ -236,7 +370,9 @@ const groupedDays = computed(() => {
 }
 
 .timeline-content {
-  background: white;
+  /* Warm paper rather than pure white, and fully opaque so the collage behind
+     it never interferes with the itinerary text. */
+  background: #faf8f2;
   padding: 1.5rem;
   border-radius: 8px;
   flex: 1;
@@ -328,6 +464,54 @@ const groupedDays = computed(() => {
 
   .date {
     font-size: 1rem;
+  }
+
+  /* At phone width the vw-based prints get too small to read as photos, so the
+     collage becomes a taller stack of larger ones and drops the two that would
+     otherwise sit behind content anyway. */
+  .backdrop-photo {
+    padding: 6px 6px 16px;
+  }
+
+  .backdrop-photo:nth-child(1) {
+    top: -2%;
+    left: -8%;
+    width: 64vw;
+  }
+
+  .backdrop-photo:nth-child(2) {
+    top: 10%;
+    left: 56%;
+    width: 38vw;
+  }
+
+  .backdrop-photo:nth-child(3) {
+    top: 34%;
+    left: -10%;
+    width: 60vw;
+  }
+
+  .backdrop-photo:nth-child(4) {
+    top: 44%;
+    left: 52%;
+    width: 52vw;
+  }
+
+  .backdrop-photo:nth-child(5) {
+    top: 68%;
+    left: -6%;
+    width: 58vw;
+  }
+
+  .backdrop-photo:nth-child(6) {
+    top: 80%;
+    left: 50%;
+    width: 54vw;
+  }
+
+  .backdrop-photo:nth-child(7),
+  .backdrop-photo:nth-child(8) {
+    display: none;
   }
 }
 </style>
