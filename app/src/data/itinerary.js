@@ -8,6 +8,11 @@ import sanJuanDeepSea from '../images/SanJuanDeepSeas.jpeg'
 import sanJuanZiplining from '../images/SanJuanZiplining.jpeg'
 import sanJuanSurf from '../images/SanJuanSurf.jpg'
 import sanJuanCatamaran from '../images/SanJuanCatamaran.jpg'
+import sanJuanSurfTownHostel from '../images/SanJuanSurfTown.webp'
+import sanJuanCasaNomada from '../images/SanJuanCasaNomada.webp'
+import sanJuanFourTreesJungleLodge from '../images/SanJuanFourTreesJungleLodge.webp'
+import sanJuanHouseByBeachAndTown from '../images/SanJuanHouseByBeachAndTown.avif'
+import sanJuanElTorreon from '../images/SanJuanElTorreon.avif'
 
 import lakeVolcano from '../images/LakeVolcano.jpg'
 import lakeMasaya from '../images/LakeMasaya.jpeg'
@@ -100,6 +105,47 @@ export const locations = {
     shortName: 'SJDS',
     description: 'San Juan del Sur is a vibrant beach town on Nicaragua\'s Pacific coast. Known for its laid-back surfer vibe, stunning sunsets, and friendly locals, this coastal paradise offers world-class beach activities and is the perfect base for adventure seekers.',
     longDescription: 'Nestled along Nicaragua\'s Pacific coast, San Juan del Sur is a picturesque beach town that has become a premier destination for travelers seeking adventure, relaxation, and authentic Central American culture. With its beautiful golden-sand beaches, warm tropical waters, and a thriving community of both locals and expats, SJDS offers an incredible mix of activities from water sports to cultural experiences. Whether you\'re looking to catch some waves, explore the nearby national parks, or simply unwind with fresh seafood and sunset views, San Juan del Sur delivers unforgettable memories.',
+    acomDesc: "San Juan del Sur has a range of accommodations ranging from party hostels to luxurious villas. Check the links below for options",
+    acomLinks : [
+      {name: "Airbnb", link: "https://www.airbnb.com/s/San-Juan-del-Sur--Nicaragua/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes"},
+    ],
+    acomOptions: [
+      {
+        name: "Surf Town Hostel",
+        platform: "Hostelworld",
+        note: "Social beach hostel 0.4km from the town centre — rooftop terrace, pool, on-site bar, daily surf trips, free breakfast.",
+        link: "https://www.hostelworld.com/pwa/hosteldetails.php/Surf-Town-Hostel/San-Juan-del-Sur/304342?from=2026-11-07&to=2026-11-10&guests=2",
+        image: sanJuanSurfTownHostel,
+      },
+      {
+        name: "Casa Nomada",
+        platform: "Hostelworld",
+        note: "Cozy, owner-run hostel 0.1km from the centre and 170m from the beach — two 5-person dorms, two private rooms, pool, coworking space.",
+        link: "https://www.hostelworld.com/pwa/hosteldetails.php/Casa-Nomada/San-Juan-Del-Sur/329939?from=2026-11-07&to=2026-11-10&guests=2",
+        image: sanJuanCasaNomada,
+      },
+      {
+        name: "Four Trees Jungle Lodge",
+        platform: "Hostelworld",
+        note: "Jungle lodge 20 min south of town (8.8km) — surf breaks, hiking, horseback riding; 4 private rooms plus one shared room.",
+        link: "https://www.hostelworld.com/pwa/hosteldetails.php/Four-Trees-Jungle-Lodge/San-Juan-Del-Sur/322455?from=2026-11-07&to=2026-11-10&guests=2",
+        image: sanJuanFourTreesJungleLodge,
+      },
+      {
+        name: "House Near Beach and Town",
+        platform: "Airbnb",
+        note: "$136/night — 5 guests, 2 bedrooms, 3 beds, 2 baths. 5 min walk to the beach, 10–15 min walk to town. Pool and rooftop patio.",
+        link: "https://www.airbnb.com/rooms/42601949",
+        image: sanJuanHouseByBeachAndTown,
+      },
+      {
+        name: "Beach Front Condo El Toreon",
+        platform: "Airbnb",
+        note: "$108/night — 5 guests, 2 bedrooms, 2 beds, 2 baths. Beachfront with hot tub and pool.",
+        link: "https://www.airbnb.com/rooms/11772209",
+        image: sanJuanElTorreon,
+      },
+    ],
     images: [
       sanJuanBeach,
       sanJuanSurf,

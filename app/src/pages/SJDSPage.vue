@@ -14,7 +14,52 @@
         <p class="short-desc">{{ location.description }}</p>
         <p class="long-desc">{{ location.longDescription }}</p>
       </section>
+      <section class="description-section">
+        <h2>Accommodations in San Juan del Sur</h2>
+        <p class="short-desc">{{ location.acomDesc }}</p>
 
+        <div v-if="location.acomOptions?.length" class="accommodation-grid">
+          <div
+            v-for="option in location.acomOptions"
+            :key="option.name"
+            class="accommodation-card"
+          >
+            <img
+              v-if="option.image"
+              :src="option.image"
+              :alt="`${option.name} photo`"
+              class="accommodation-image"
+            />
+            <div v-else class="accommodation-image accommodation-image-placeholder">
+              {{ option.platform }}
+            </div>
+            <span class="accommodation-badge">{{ option.platform }}</span>
+            <h3>{{ option.name }}</h3>
+            <p>{{ option.note }}</p>
+            <a
+              :href="option.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="activity-link"
+            >
+              View listing →
+            </a>
+          </div>
+        </div>
+
+        <p class="long-desc browse-more">
+          Browse more on:
+          <a
+            v-for="link in location.acomLinks"
+            :key="link.name"
+            :href="link.link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ link.name }}
+          </a>
+        </p>
+      </section>
       <!-- <section v-if="location.images.length > 1" class="gallery-section">
         <h2>Experience</h2>
         <div class="gallery">
@@ -145,6 +190,81 @@
     color: #555;
   }
 
+  .browse-more {
+    margin-top: 1.5rem;
+  }
+
+  .browse-more a {
+    margin-right: 1rem;
+  }
+
+  .accommodation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .accommodation-card {
+    background: white;
+    border: 2px solid var(--color-secondary);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .accommodation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .accommodation-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+  }
+
+  .accommodation-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .accommodation-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+  }
+
+  .accommodation-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: var(--color-primary);
+  }
+
+  .accommodation-card p {
+    margin: 0 0 1rem 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
   .gallery-section {
     margin-bottom: 3rem;
   }
@@ -262,6 +382,10 @@
     }
 
     .activities-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .accommodation-grid {
       grid-template-columns: 1fr;
     }
   }
