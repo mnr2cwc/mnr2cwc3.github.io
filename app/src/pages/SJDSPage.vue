@@ -35,7 +35,18 @@
             </div>
             <span class="accommodation-badge">{{ option.platform }}</span>
             <h3>{{ option.name }}</h3>
-            <p>{{ option.note }}</p>
+            <p v-if="option.price" class="accommodation-price">{{ option.price }}</p>
+            <div v-if="option.amenities?.length" class="amenity-tags">
+              <span
+                v-for="amenity in option.amenities"
+                :key="amenity"
+                class="amenity-tag"
+              >
+                {{ amenity }}
+              </span>
+            </div>
+            <p v-if="option.details" class="accommodation-details">{{ option.details }}</p>
+            <p v-if="option.note">{{ option.note }}</p>
             <a
               :href="option.link"
               target="_blank"
@@ -263,6 +274,34 @@
     margin: 0 0 1rem 0;
     color: #555;
     font-size: 0.95rem;
+  }
+
+  .accommodation-price {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .amenity-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .amenity-tag {
+    background: #f0f0f0;
+    color: #555;
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .accommodation-details {
+    margin: 0 0 1rem 0;
+    color: #555;
+    font-size: 0.9rem;
   }
 
   .gallery-section {

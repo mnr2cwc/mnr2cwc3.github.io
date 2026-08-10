@@ -20,6 +20,9 @@ import lakeGranada from '../images/LakeGranada.jpeg'
 import lakeOmpete from '../images/LakeOmpete.jpeg'
 import lakeIsletas from '../images/LakeIsletas.jpeg'
 import lakeFish from '../images/LakeFish.jpeg'
+import lakeHostelOasisGranada from '../images/LakeHostelOasisGranada.webp'
+import lakeHostalAzul from '../images/LakeHostalAzul.webp'
+import lakeCasaGalloPinto from '../images/LakeCasaGalloPinto.webp'
 
 import LeonBoarding from '../images/LeonVolcanoBoarding.jpeg'
 import LeonPartyBus from '../images/LeonPartyBus.jpeg'
@@ -113,21 +116,24 @@ export const locations = {
       {
         name: "Surf Town Hostel",
         platform: "Hostelworld",
-        note: "Social beach hostel 0.4km from the town centre — rooftop terrace, pool, on-site bar, daily surf trips, free breakfast.",
+        amenities: ["Free Breakfast", "Free WiFi", "Pool", "Bar", "Rooftop terrace", "Kitchen"],
+        details: "0.4km from the town centre — high-energy social hostel with daily activities (surf trips, beer pong, movie nights). Capsule dorms, standard dorms, and private rooms with en-suite baths.",
         link: "https://www.hostelworld.com/pwa/hosteldetails.php/Surf-Town-Hostel/San-Juan-del-Sur/304342?from=2026-11-07&to=2026-11-10&guests=2",
         image: sanJuanSurfTownHostel,
       },
       {
         name: "Casa Nomada",
         platform: "Hostelworld",
-        note: "Cozy, owner-run hostel 0.1km from the centre and 170m from the beach — two 5-person dorms, two private rooms, pool, coworking space.",
+        amenities: ["Free WiFi", "Coworking Space", "24hr Reception", "Cafe", "Pool", "Kitchen access"],
+        details: "0.1km from the centre and 170m from the beach — two 5-person dorms and two private rooms in a warm, owner-run atmosphere. Cash only, check-in 2–8pm.",
         link: "https://www.hostelworld.com/pwa/hosteldetails.php/Casa-Nomada/San-Juan-Del-Sur/329939?from=2026-11-07&to=2026-11-10&guests=2",
         image: sanJuanCasaNomada,
       },
       {
         name: "Four Trees Jungle Lodge",
         platform: "Hostelworld",
-        note: "Jungle lodge 20 min south of town (8.8km) — surf breaks, hiking, horseback riding; 4 private rooms plus one shared room.",
+        amenities: ["Free WiFi", "Free Parking", "Board Games", "27 total facilities"],
+        details: "8.8km south of town — jungle lodge with 4 private rooms and one shared room; surf breaks, hiking, and horseback riding nearby. Cash only, 3-day cancellation notice.",
         link: "https://www.hostelworld.com/pwa/hosteldetails.php/Four-Trees-Jungle-Lodge/San-Juan-Del-Sur/322455?from=2026-11-07&to=2026-11-10&guests=2",
         image: sanJuanFourTreesJungleLodge,
       },
@@ -209,6 +215,39 @@ export const locations = {
     shortName: 'Lake Nicaragua',
     description: 'Lake Nicaragua is one of Central America\'s most beautiful freshwater lakes, home to the historic colonial city of Granada and the stunning volcanic island of Ometepe. A natural wonder with incredible biodiversity and rich cultural heritage.',
     longDescription: 'Lake Nicaragua (Lago de Nicaragua) is Central America\'s largest freshwater lake and a UNESCO-designated wetland of international importance. Its waters are dotted with over 400 islands, from the tiny isletas near Granada to the distinctive twin-peaked volcano island of Ometepe. The lake region is a gateway to pristine nature, adventure, and culture. Granada, the colonial jewel on the lakeshore, combines Spanish colonial architecture with vibrant Caribbean culture. The lake itself is home to unique wildlife including freshwater sharks, caimans, and countless bird species. This region is perfect for island hopping, volcano hiking, cultural exploration, and simply soaking in the natural beauty.',
+    acomDesc: "Granada has a great range of hostels near the city centre. Check the options below.",
+    acomLinks: [
+      {name: "Hostelworld", link: "https://www.hostelworld.com/st/hostels/central-america/nicaragua/granada/"},
+    ],
+    acomOptions: [
+      {
+        name: "Hostel Oasis Granada",
+        platform: "Hostelworld",
+        price: "Privates from $10.53/night, Dorms from $10.00/night",
+        amenities: ["Free Breakfast", "Free WiFi", "Pool", "Shared kitchen", "Garden/bar"],
+        details: "Rating 9.3 'Superb' (2,866 reviews), 0.34km from city centre. 2025 Hoscars Winner - 3rd Best Small Hostels.",
+        link: "https://www.hostelworld.com/hostels/p/74836/hostel-oasis-granada/",
+        image: lakeHostelOasisGranada,
+      },
+      {
+        name: "Hostal Azul",
+        platform: "Hostelworld",
+        price: "Privates from $15.00/night, Dorms from $11.00/night",
+        amenities: ["Free Breakfast", "Free WiFi", "Pool", "Well-equipped kitchen", "AC dorms"],
+        details: "Rating 9.6 'Superb' (1,128 reviews), 0.22km from city centre. 2026 Hoscars Winner - 2nd Country Winners.",
+        link: "https://www.hostelworld.com/hostels/p/274782/hostal-azul/",
+        image: lakeHostalAzul,
+      },
+      {
+        name: "Casa Gallo Pinto",
+        platform: "Hostelworld",
+        price: "Privates from $9.33/night, Dorms from $9.00/night",
+        amenities: ["Free Breakfast", "Free WiFi"],
+        details: "Rating 8.9 'Fabulous' (52 reviews), 0.31km from city centre. Simple, clean, airy space in the heart of Granada.",
+        link: "https://www.hostelworld.com/hostels/p/332794/casa-gallo-pinto/",
+        image: lakeCasaGalloPinto,
+      },
+    ],
     // Placeholder stock photos until we have our own — see the note on imports
     // at the top of this file for how to swap in a local one.
     images: [
