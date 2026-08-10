@@ -14,33 +14,56 @@
       <h2>Itinerary</h2>
       <div class="timeline-container">
         <div
-          v-for="day in days"
-          :key="day.day"
+          v-for="group in groupedDays"
+          :key="group.startDay"
           class="timeline-item"
         >
           <div class="timeline-marker">
-            <span class="day-number">{{ day.day }}</span>
+            <span class="day-number" :class="{ 'day-range': group.days.length > 1 }">
+              {{ group.days.length > 1 ? `${group.startDay}–${group.endDay}` : group.startDay }}
+            </span>
           </div>
           <div class="timeline-content">
             <div class="day-header">
-              <h3 class="date">{{ day.date }}</h3>
-              <span class="location-badge">{{ day.location }}</span>
+              <h3 class="date">
+                {{ group.days.length > 1 ? `${group.startDate} – ${group.endDate}` : group.startDate }}
+              </h3>
+              <span class="location-badge">{{ group.location }}</span>
             </div>
-            <div v-if="day.activity" class="activity">
-              <strong>{{ day.activity }}</strong>
+            <img
+              v-if="group.thumbnail"
+              :src="group.thumbnail"
+              :alt="group.location"
+              class="group-thumbnail"
+            />
+            <div class="day-list">
+              <div
+                v-for="day in group.days"
+                :key="day.day"
+                class="day-entry"
+                :class="{ 'travel-day': isTravelDay(day) }"
+              >
+                <span v-if="group.days.length > 1" class="day-entry-label">
+                  Day {{ day.day }} &middot; {{ day.date }}
+                </span>
+                <div v-if="day.activity" class="activity">
+                  <strong>{{ day.activity }}</strong>
+                </div>
+                <div v-else class="notes empty-note">Free day &mdash; open to explore</div>
+                <div v-if="day.notes" class="notes">
+                  {{ day.notes }}
+                </div>
+                <a
+                  v-if="day.link"
+                  :href="day.link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-btn"
+                >
+                  Learn more →
+                </a>
+              </div>
             </div>
-            <div v-if="day.notes" class="notes">
-              {{ day.notes }}
-            </div>
-            <a
-              v-if="day.link"
-              :href="day.link"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="link-btn"
-            >
-              Learn more →
-            </a>
           </div>
         </div>
       </div>
@@ -49,9 +72,39 @@
 </template>
 
 <script setup>
-import { days } from '../data/itinerary.js'
+import { computed } from 'vue'
+import { days, locations } from '../data/itinerary.js'
 import NicaraguaMap from '../components/NicaraguaMap.vue'
 import FlightSearch from '../components/FlightSearch.vue'
+
+const locationKeyForDay = (dayNumber) =>
+  Object.keys(locations).find((key) => locations[key].days?.includes(dayNumber)) ?? null
+
+const isTravelDay = (day) => day.activity?.toLowerCase().includes('fly') ?? false
+
+const groupedDays = computed(() => {
+  const groups = []
+  for (const day of days) {
+    const current = groups[groups.length - 1]
+    if (current && current.location === day.location) {
+      current.days.push(day)
+    } else {
+      groups.push({ location: day.location, days: [day] })
+    }
+  }
+
+  return groups.map((group) => {
+    const locationKey = locationKeyForDay(group.days[0].day)
+    return {
+      ...group,
+      startDay: group.days[0].day,
+      endDay: group.days[group.days.length - 1].day,
+      startDate: group.days[0].date,
+      endDate: group.days[group.days.length - 1].date,
+      thumbnail: locationKey ? locations[locationKey].images?.[0] ?? null : null,
+    }
+  })
+})
 </script>
 
 <style scoped>
@@ -133,6 +186,53 @@ import FlightSearch from '../components/FlightSearch.vue'
   font-weight: 700;
   font-size: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-number.day-range {
+  width: auto;
+  min-width: 40px;
+  padding: 0 0.6rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.group-thumbnail {
+  display: block;
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.day-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.day-entry + .day-entry {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+.day-entry-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.empty-note {
+  color: #888;
+}
+
+.day-entry.travel-day {
+  padding-left: 0.8rem;
+  border-left: 3px solid var(--color-accent);
 }
 
 .timeline-content {
